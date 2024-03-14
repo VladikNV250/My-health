@@ -3,8 +3,28 @@
 @tailwind utilities;
 
 
+.outline-remove {
+  outline: none;
+}
+.remove-arrow::-webkit-inner-spin-button,
+.remove-arrow::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.remove-arrow {
+    -moz-appearance: textfield;
+}
+
+.circle {
+  top: 0;
+  left: 0;
+}
+/* 
 @layer utilities {
+  .position {
+    
+  }
   .text-balance {
     text-wrap: balance;
   }
-}
+} */

@@ -8,7 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      
+      colors: {
+        main: {
+          300: '#E745246E',
+          500: '#E74424',
+        },
+        slate: {
+          150: '#EDF1F6',
+        },
+        second: '#E79924',
+        third: '#7EE724',
+      },
+      position: {
+        '1/2m': '-50%',
+      }
     },
   },
   plugins: [],
