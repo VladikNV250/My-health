@@ -1,8 +1,19 @@
-export default function Card() {
+import { Exercise } from "@/data"
+
+interface CardProps {
+  name: string,
+  exercises: Exercise[],
+  log: Date[],
+  duration: string,
+  breakTime: string,
+}
+
+
+export default function Card({name, exercises, log, duration, breakTime}: CardProps) {
     return (
         <div className="relative flex flex-col justify-between w-full h-52 p-5 shadow-2xl bg-gray-500 bg-gradient-to-r from-main-500 to-second text-white rounded-2xl">
           <div className="first_level flex justify-between items-center">
-            <h2 className="text-xl font-bold">Workout</h2>
+            <h2 className="text-xl font-bold">{name}</h2>
             <div className="three_dots flex justify-between items-center space-x-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
