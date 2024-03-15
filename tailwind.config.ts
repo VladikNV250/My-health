@@ -10,8 +10,10 @@ const config: Config = {
     extend: {
       colors: {
         main: {
-          300: '#E745246E',
+          300: '#eb694f',
+          400: '#e95639',
           500: '#E74424',
+          600: '#cf3d20',
         },
         slate: {
           150: '#EDF1F6',
