@@ -2,6 +2,7 @@
 import { Exercise } from "@/data";
 import { Icon } from "@/icons";
 import Image from "next/image";
+import result from "postcss/lib/result";
 import { useRef } from "react";
 
 interface ExerciseProps {
@@ -23,6 +24,8 @@ export default function Exercise({icon, name, time, exercises, setExercises, id,
 
     function changeTime(target: HTMLInputElement, value: string) {
         const regEx = /[A-Za-z]+/i
+        console.log(regEx.test(value));
+
         if (regEx.test(value)) {
             target.value = time;
             return;
@@ -116,7 +119,7 @@ export default function Exercise({icon, name, time, exercises, setExercises, id,
             </div>
             <button type="button" onClick={duplicateExercise} className="copy-exercise w-[60px] flex justify-center items-center bg-blue-600 text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-copy" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                    <path fillRule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
                 </svg>
             </button>
             <button type="button" onClick={deleteExercise} className="delete-exercise w-[60px] flex justify-center items-center bg-red-600 text-white">
