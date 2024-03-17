@@ -26,7 +26,7 @@ export default function Page() {
   function handleSubmit(e: any) {
     // Prevent the browser from reloading the page
     e.preventDefault();
-
+    
 
     function isValidTime(time: string): boolean {
       const regEx = /^([0-9][0-9]:[0-9][0-9])/i;
@@ -103,6 +103,7 @@ export default function Page() {
       duration: formJson.duration,
       exercises: exercises,
       log: [],
+      creationDate: new Date(), 
     }
     workouts[formJson.name as string] = workout;
     localStorage.setItem('workouts', JSON.stringify(workouts))   
