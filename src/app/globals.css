@@ -19,6 +19,21 @@
   top: 0;
   left: 0;
 }
+
+.modal-button::after {
+  content: '';
+  width: 0;
+  height: 1px;
+  background: white;
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.modal-button:hover::after { width: 100%; }
 /* 
 @layer utilities {
   .position {
