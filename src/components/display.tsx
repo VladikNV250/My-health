@@ -1,12 +1,19 @@
 import Image from "next/image";
 import dumb from "./../../public/dumbbell.png";
 
-export default function Display() {
+interface DisplayProps {
+    icon: string,
+    progress: number,
+}
+
+export default function Display({icon, progress}: DisplayProps) {
+
+
     return (
         <div className="w-96 h-96 relative flex justify-center items-center">
             <div className="w-full h-full flex justify-center items-center bg-white rounded-full">
                 <Image
-                  src={dumb.src}
+                  src={icon}
                   width={250}
                   height={250}
                   alt=""
@@ -17,8 +24,8 @@ export default function Display() {
                     <circle className="w-full h-full stroke-[3px] stroke-gray-900" cx="50%" cy="50%" r="45%" />
                     <path
                       id="base-timer-path-remaining"
-                      stroke-dasharray="71 283" //2PI * 45
-                      className="base-timer__path-remaining stroke-[3px] stroke-main-500"
+                      strokeDasharray={`${Math.round((progress * 283) / 100)} 283`} //2PI * 45
+                      className="base-timer__path-remaining stroke-[3px] stroke-main-500 transition-all"
                       d="
                       M 50, 50
                       m -45, 0

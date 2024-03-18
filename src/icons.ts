@@ -7,8 +7,9 @@ import running from "./../public/running.png";
 import swimming from "./../public/swimming.png";
 import volleyball from "./../public/volleyball.png";
 import warmUp from "./../public/warm-up.png";
+import clock from "./../public/clock.png";
 
-export type IconType = 'Dumb' | 'Cycling' | 'Expander' | 'PullUp' | 'PushUp' | 'Run' | 'Swim' | 'Ball' | 'WarmUp'
+export type IconType = 'Dumb' | 'Cycling' | 'Expander' | 'PullUp' | 'PushUp' | 'Run' | 'Swim' | 'Ball' | 'WarmUp' | 'Clock'
 export const Icon = {
     'Dumb': dumb.src,
     'Cycling': cycling.src,
@@ -19,4 +20,5 @@ export const Icon = {
     'Swim': swimming.src,
     'Ball': volleyball.src,
     'WarmUp': warmUp.src,
+    'Break': clock.src,
 }
