@@ -1,6 +1,7 @@
 import { Day, Exercise, Month, Workout } from "@/data"
 import clsx from "clsx";
-import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface CardProps {
   name: string,
@@ -31,7 +32,14 @@ export default function Card({name, exercises, log, duration, breakTime, creatio
       return DAYS[day];
     }
 
-    
+    useEffect(() => {
+      const durationInSec: number = +duration * 24 * 60 * 60;
+      const now = Date.now();
+      const creationDateInSec = Date.parse(creationDate.toString());
+      
+      if (Math.round((now - creationDateInSec) / 1000) >= durationInSec)
+        setIsFinished(true);
+    }, []) 
 
     function calculateTotalTime() {
       function turnIntoSeconds(time: string): number {
@@ -73,8 +81,19 @@ export default function Card({name, exercises, log, duration, breakTime, creatio
       setModalWindow(false);
     }
 
-    function checkFinish() {
-
+    function displayLog() {
+      return log.map((date, index) => {
+        if (index < log.length && index >= log.length - 3) { // last 3 dates
+          const dayOfMonth = new Date(date.toString()).getDate();
+          const month = getMonth(new Date(date.toString()).getMonth());
+          const dayOfWeek = getDay(new Date(date.toString()).getDay())
+          return (
+            <li className="text-center" key={index}>
+              {`${dayOfMonth} ${month}, ${dayOfWeek}`}
+            </li>
+          )
+        }
+      })
     }
 
     return (
@@ -90,7 +109,11 @@ export default function Card({name, exercises, log, duration, breakTime, creatio
               disabled={!modalWindow} 
               className="modal-button relative"
             >
-              Edit workout program
+              <Link
+                href={`/${name}/edit`}
+              >
+                Edit workout program
+              </Link>
             </button>
             <button 
               disabled={!modalWindow} 
@@ -123,12 +146,10 @@ export default function Card({name, exercises, log, duration, breakTime, creatio
             <div className="line relative w-0.5 h-full bg-white top-0 left"></div>
             <ul className="w-3/5 h-full flex flex-col items-center text-sm">
               <h3 className="text-lg mb-1">Run log</h3>
-              {log.map(date => (
-                <li className="text-center">{date.getDate()} {getMonth(date.getMonth())}, {getDay(date.getDay())}</li>
-              ))}
+              {displayLog()}
             </ul>
           </div>
-          <div className="third_level relative flex">
+          <div className="third_level relative flex justify-between">
             <div className="time_display flex items-center space-x-5">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-clock" viewBox="0 0 16 16">
                 <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
@@ -136,15 +157,19 @@ export default function Card({name, exercises, log, duration, breakTime, creatio
               </svg>
               <div className="time">{calculateTotalTime()}</div>
             </div>
-            <button className="play z-40 absolute left-1/2 transform -translate-x-1/2 bg-white border-4 border-gray-900 w-14 h-14 rounded-full flex justify-center items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-play-fill fill-gray-900 ml-1" viewBox="0 0 16 16">
-                <path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z"/>
-                {/* <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/> */}
-              </svg>
+            <button className="play z-40 absolute left-1/2 top-1/2 transform -translate-x-1/2 bg-white border-4 border-gray-900 w-14 h-14 rounded-full flex justify-center items-center">
+              <Link
+                href={`/${name}`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-play-fill fill-gray-900 ml-1" viewBox="0 0 16 16">
+                  <path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z"/>
+                </svg>
+              </Link>
             </button>
             <div 
               className={clsx(
-                ""
+                "px-5 py-1 rounded-3xl bg-white text-gray-900 font-bold border-2 border-gray-900",
+                !isFinished && 'hidden',
               )}
             >
               Finished
