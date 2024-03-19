@@ -81,8 +81,19 @@ export default function Card({name, exercises, log, duration, breakTime, creatio
       setModalWindow(false);
     }
 
-    function checkFinish() {
-
+    function displayLog() {
+      return log.map((date, index) => {
+        if (index < log.length && index >= log.length - 3) { // last 3 dates
+          const dayOfMonth = new Date(date.toString()).getDate();
+          const month = getMonth(new Date(date.toString()).getMonth());
+          const dayOfWeek = getDay(new Date(date.toString()).getDay())
+          return (
+            <li className="text-center" key={index}>
+              {`${dayOfMonth} ${month}, ${dayOfWeek}`}
+            </li>
+          )
+        }
+      })
     }
 
     return (
@@ -135,9 +146,7 @@ export default function Card({name, exercises, log, duration, breakTime, creatio
             <div className="line relative w-0.5 h-full bg-white top-0 left"></div>
             <ul className="w-3/5 h-full flex flex-col items-center text-sm">
               <h3 className="text-lg mb-1">Run log</h3>
-              {log.map(date => (
-                <li className="text-center">{date.getDate()} {getMonth(date.getMonth())}, {getDay(date.getDay())}</li>
-              ))}
+              {displayLog()}
             </ul>
           </div>
           <div className="third_level relative flex justify-between">
